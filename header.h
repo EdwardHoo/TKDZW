@@ -10,11 +10,12 @@
 #include <iostream>
 using namespace std;
 
-class Player;
-class Position;
-class Arena;
+//three foundamental elements of the game
+class Player; //can be seen as a single tank
+class Position; //(x,y)
+class Arena;    //an arena for the tanks to move around, featured by its length and width
 
-int Get_TankSpeed(int Tank_Type);
+int Get_TankSpeed(int Tank_Type);  //as designed, each tank has its own speed; for early developing, the speed of the tank equals to its type number
 
 class Position {
 public:
@@ -29,44 +30,44 @@ public:
 	Player(string name, int tank_type, int color);
 	string Get_Name();
 	Position Get_Position();
-	int Load_ToGame(Arena* _arena);
-	int Exit_FromGame();
+	int Load_ToGame(Arena* _arena); //use this function to load a player(tank) to the destinated Arena
+	int Exit_FromGame(); //use this to get it out
 
-	int Move(int direction);
+	int Move(int direction); //1 = up, 2 = down, 3 = left, 4 = right, the tank will more an amount of its speed of pixals in the arena to the selected direction; boundary issue has been considered within
 
 private:
-	string Name;
+	string Name; //THIS IS THE IDENTIFY OF EACH PLAYER, NO SAME NAME ALLOWED. ALL PLAYERS WILL BE CALLED ACCORDING TO THEIR NAMES
 	int Tank_Type;
 	int color;
-	bool isInGame;
-	Position CurrentP;
-	Arena* inWhichArena;
+	bool isInGame; //whether the player is in an Arena or not, which shows whether this player is in game or not
+	Position CurrentP; //current position of the player in the Arena
+	Arena* inWhichArena; //A pointer to the Arena the player is situated in, will be a void pointer when isInGame is false
 };
 
 class Arena {
 public:
 	Arena(int length, int width, int type);
-	int Load_Player(Player P);
+	int Load_Player(Player P);           //Simply do not use these two functions
 	int Erase_Player(string name);
-	int Get_PlayerQuan();
-	int Get_Length();
+	int Get_PlayerQuan();			//how many players are there in this Arena?
+	int Get_Length();              //how big this arena is?
 	int Get_Width();
 private:
 	int Length; //in pixals
 	int Width;
 	int Type;
 	bool isValid;
-	map<string, Player> Player_InArena;
+	map<string, Player> Player_InArena;    //each Arena has its own list(map) of the players inside
 };
 
 //Variables for the whole game
 int Game_Mode;
 int Game_Extra;
-vector<Player> Player_List;
-int Player_Quan = 0;
+vector<Player> Player_List;               //an important list to storage all the players connected
+int Player_Quan = 0;                      
 
 int Game_Initial(int mode, int extra);
-int Player_AddToList(string name, int tank_type, int color);
+int Player_AddToList(string name, int tank_type, int color); //add a new player to the main list
 
 
 Position::Position(int x, int y) {
