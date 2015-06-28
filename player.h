@@ -7,8 +7,10 @@ class player :
 public:
 	player(std::string name, int tk);
 	~player();
-private:
 	std::string Name;
 	int Tank_Type;
+	int HP;
+	bool alive;
+	bool inGame;
 };
 
